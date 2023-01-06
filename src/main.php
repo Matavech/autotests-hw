@@ -14,7 +14,6 @@ function isParenthesisValid(string $input): bool
 		throw new Exception('Empty Input');
 	}
 
-	$helpingBraces = ['(', ')', '[', ']', '<', '>'];
 	$braces = [
 		')' => '(',
 		']' => '[',
@@ -26,12 +25,7 @@ function isParenthesisValid(string $input): bool
 
 	foreach ($chars as $char)
 	{
-		// if (!array_key_exists($char, $braces) || !in_array($char, $braces))
-		// {
-		// 	continue;
-		// }
-		// Не понимаю, почему проверка выше не работает. Пришлось закостылять дополнительный массив helpingBraces
-		if (!in_array($char, $helpingBraces))
+		if (!array_key_exists($char, $braces) && !in_array($char, $braces))
 		{
 			continue;
 		}
