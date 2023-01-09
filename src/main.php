@@ -6,7 +6,6 @@
  * @return bool
  * @throws Exception for empty input
  */
-
 function isParenthesisValid(string $input): bool
 {
 	if ($input === '')

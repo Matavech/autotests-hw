@@ -10,29 +10,49 @@ class MainTest extends TestCase
 		isParenthesisValid('');
 	}
 
-	public function testWithNoParentheses():void
+	/**
+	 * @dataprovider validParenthesisProvider
+	 */
+	public function testValidParenthesis()
 	{
-		$this->assertTrue(isParenthesisValid('Hello there'));
+		foreach ($this->validParenthesisProvider() as $str)
+		{
+			$this->assertTrue(isParenthesisValid($str));
+		}
 	}
 
-	public function testOneKindOfParentheses():void
+	public function validParenthesisProvider()
 	{
-		$this->assertTrue(isParenthesisValid('Hello (there)'));
-		$this->assertFalse(isParenthesisValid('Hello (there'));
-		$this->assertFalse(isParenthesisValid('Hello )there('));
+		return [
+			'Hello there',
+			'Hello (there)',
+			'Hello (th[e]re)',
+			'<Hello (th[e]re)>',
+		];
 	}
 
-	public function testTwoKindsOfParentheses():void
+	/**
+	 * @dataprovider invalidParenthesisProvider
+	 */
+	public function testInvalidParenthesis()
 	{
-		$this->assertTrue(isParenthesisValid('Hello (th[e]re)'));
-		$this->assertFalse(isParenthesisValid('Hello (th[ere)'));
-		$this->assertFalse(isParenthesisValid('Hello (th[e)re]'));
+		foreach ($this->invalidParenthesisProvider() as $str)
+		{
+			$this->assertFalse(isParenthesisValid($str));
+		}
+
 	}
 
-	public function testThreeKindsOfParentheses():void
+	public function invalidParenthesisProvider()
 	{
-		$this->assertTrue(isParenthesisValid('<Hello (th[e]re)>'));
-		$this->assertFalse(isParenthesisValid('Hello (th[ere)>'));
-		$this->assertFalse(isParenthesisValid('Hello (t[h<)er]e>'));
+		return [
+			'Hello (there',
+			'Hello )there(',
+			'Hello (th[ere)',
+			'Hello (th[e)re]',
+			'Hello (th[ere)>',
+			'Hello (t[h<)er]e>',
+		];
 	}
+
 }
