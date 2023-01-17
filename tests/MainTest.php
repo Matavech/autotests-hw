@@ -11,47 +11,42 @@ class MainTest extends TestCase
 	}
 
 	/**
-	 * @dataprovider validParenthesisProvider
+	 * @dataProvider validParenthesisProvider
 	 */
-	public function testValidParenthesis()
+	public function testValidParenthesis($str)
 	{
-		foreach ($this->validParenthesisProvider() as $str)
-		{
 			$this->assertTrue(isParenthesisValid($str));
-		}
+
 	}
 
-	public function validParenthesisProvider()
+	public function validParenthesisProvider() : array
 	{
 		return [
-			'Hello there',
-			'Hello (there)',
-			'Hello (th[e]re)',
-			'<Hello (th[e]re)>',
+			['Hello there'],
+			['Hello (there)'],
+			['Hello (th[e]re)'],
+			['<Hello (th[e]re)>'],
 		];
 	}
 
 	/**
-	 * @dataprovider invalidParenthesisProvider
+	 * @dataProvider invalidParenthesisProvider
 	 */
-	public function testInvalidParenthesis()
+	public function testInvalidParenthesis($str)
 	{
-		foreach ($this->invalidParenthesisProvider() as $str)
-		{
 			$this->assertFalse(isParenthesisValid($str));
-		}
 
 	}
 
-	public function invalidParenthesisProvider()
+	public function invalidParenthesisProvider() : array
 	{
 		return [
-			'Hello (there',
-			'Hello )there(',
-			'Hello (th[ere)',
-			'Hello (th[e)re]',
-			'Hello (th[ere)>',
-			'Hello (t[h<)er]e>',
+			['Hello (there'],
+			['Hello )there('],
+			['Hello (th[ere)'],
+			['Hello (th[e)re]'],
+			['Hello (th[ere)>'],
+			['Hello (t[h<)er]e>'],
 		];
 	}
 
